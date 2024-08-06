@@ -1,3 +1,6 @@
+slint::include_modules!();
+
 fn main() {
-    println!("Hello, world!");
+	let window = Root::new().unwrap();
+	window.run().unwrap();
 }
