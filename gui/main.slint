@@ -1,5 +1,75 @@
-export component Root inherits Window {
+component Card inherits Rectangle {
+	border-radius: 10px;
+	border-color: #b0b0b0;
+	clip: true;
+
+	animate border-width, background {
+		duration: 100ms;
+		easing: ease-out;
+	}
+
+	height: 35%;
+
 	Text {
-		text: "Hello world!";
+		text: "Test";
+		font-size: 20pt;
+	}
+
+	touch := TouchArea {}
+
+	circle := Rectangle {
+		border-radius: self.width / 2;
+		background: #808080;
+		x: touch.pressed-x - self.width / 2;
+		y: touch.pressed-y - self.height / 2;
+	}
+
+	states [
+		active when touch.pressed: {
+			circle.opacity: 30%;
+			circle.width: 100px;
+			circle.height: 100px;
+
+			root.background: #084858;
+			root.border-width: 5px;
+
+			in {
+				animate circle.width, circle.height {
+					duration: 1s;
+					easing: ease-out;
+				}
+			}
+		}
+
+		hover when touch.has-hover: {
+			circle.opacity: 0;
+			circle.width: 30px;
+			circle.height: 30px;
+			root.background: #175767;
+			root.border-width: 5px;
+		}
+
+		idle when !touch.pressed && !touch.has-hover: {
+			circle.opacity: 0;
+			circle.width: 30px;
+			circle.height: 30px;
+			root.background: #105060;
+			root.border-width: 0;
+		}
+	]
+}
+
+export component Root inherits Window {
+	background: #202020;
+
+	preferred-width: 400px;
+	preferred-height: 600px;
+
+	VerticalLayout {
+		width: 60%;
+		alignment: space-around;
+
+		Card {}
+		Card {}
 	}
 }
