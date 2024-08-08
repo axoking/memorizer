@@ -1,0 +1,15 @@
+export component BasicCard inherits Rectangle {
+	in property <int> id;
+
+	border-radius: 10px;
+	border-color: #b0b0b0;
+	background: #105060;
+	clip: true;
+
+	height: 35%;
+
+	Text {
+		text: id == -1 ? "?" : id;
+		font-size: 20pt;
+	}
+}

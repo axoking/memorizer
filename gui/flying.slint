@@ -1,0 +1,19 @@
+import { BasicCard } from "card.slint";
+
+export component FlyingCard inherits BasicCard {
+	in property <length> home_x;
+	in property <length> home_y;
+	in property <length> target_x;
+	in property <length> target_y;
+	in property <bool> flying;
+	in property <bool> show;
+
+	x: flying ? target_x : home_x;
+	y: flying ? target_y : home_y;
+	opacity: show ? 1 : 0;
+
+	animate x, y {
+		duration: 1s;
+		easing: ease-out;
+	}
+}
