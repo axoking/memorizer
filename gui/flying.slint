@@ -5,15 +5,27 @@ export component FlyingCard inherits BasicCard {
 	in property <length> home_y;
 	in property <length> target_x;
 	in property <length> target_y;
-	in property <bool> flying;
+	in property <bool> on_target;
 	in property <bool> show;
+	in property <duration> fly_duration;
 
-	x: flying ? target_x : home_x;
-	y: flying ? target_y : home_y;
 	opacity: show ? 1 : 0;
 
-	animate x, y {
-		duration: 1s;
-		easing: ease-out;
-	}
+	states [
+		flying when on_target: {
+			x: target_x;
+			y: target_y;
+
+			in {
+				animate x, y {
+					duration: fly_duration;
+					easing: ease-out;
+				}
+			}
+		}
+		home when !on_target: {
+			x: home_x;
+			y: home_y;
+		}
+	]
 }

@@ -3,6 +3,12 @@ import { ReactiveCard } from "reactive.slint";
 import { BasicCard } from "card.slint";
 
 export component Root inherits Window {
+	callback stack_clicked;
+
+	in property <bool> animation_on_target: false;
+	in property <bool> show_animation: false;
+	in property <duration> animation_len;
+
 	background: #202020;
 
 	preferred-width: 400px;
@@ -16,8 +22,7 @@ export component Root inherits Window {
 			id: -1;
 
 			clicked => {
-				flying.show = true;
-				flying.flying = true;
+				root.stack_clicked();
 			}
 		}
 		open := BasicCard {
@@ -35,5 +40,9 @@ export component Root inherits Window {
 
 		width: stack.width;
 		height: stack.height;
+
+		on_target: animation_on_target;
+		show: show_animation;
+		fly_duration: animation_len;
 	}
 }
