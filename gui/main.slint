@@ -1,6 +1,6 @@
 import { FlyingCard } from "flying.slint";
 import { ReactiveCard } from "reactive.slint";
-import { BasicCard } from "card.slint";
+import { BasicCard, CardMode } from "card.slint";
 
 export component Root inherits Window {
 	callback stack_clicked;
@@ -19,7 +19,7 @@ export component Root inherits Window {
 		alignment: space-around;
 
 		stack := ReactiveCard {
-			id: -1;
+			mode: CardMode.Covered;
 
 			clicked => {
 				root.stack_clicked();
@@ -27,6 +27,7 @@ export component Root inherits Window {
 		}
 		open := BasicCard {
 			id: 42;
+			mode: CardMode.Empty;
 		}
 	}
 

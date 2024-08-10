@@ -1,5 +1,12 @@
+export enum CardMode {
+	Open,
+	Covered,
+	Empty
+}
+
 export component BasicCard inherits Rectangle {
 	in property <int> id;
+	in property <CardMode> mode;
 
 	border-radius: 10px;
 	border-color: #b0b0b0;
@@ -8,8 +15,17 @@ export component BasicCard inherits Rectangle {
 
 	height: 35%;
 
-	Text {
-		text: id == -1 ? "?" : id;
+	label := Text {
+		text: mode == CardMode.Covered ? "?" : id;
 		font-size: 20pt;
+		visible: mode != CardMode.Empty;
 	}
+
+	states [
+		empty when mode == CardMode.Empty: {
+			background: transparent;
+			border-width: 5px;
+			border-color: #505050;
+		}
+	]
 }
