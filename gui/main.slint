@@ -7,7 +7,12 @@ export component Root inherits Window {
 
 	in property <bool> animation_on_target: false;
 	in property <bool> show_animation: false;
+	in property <bool> stack_empty: false;
+	in property <bool> open_empty: true;
+	in property <bool> locked: false;
 	in property <duration> animation_len;
+	in property <int> open_id;
+	in property <int> flying_id;
 
 	background: #202020;
 
@@ -19,20 +24,20 @@ export component Root inherits Window {
 		alignment: space-around;
 
 		stack := ReactiveCard {
-			mode: CardMode.Covered;
+			mode: stack_empty ? CardMode.Empty : CardMode.Covered;
 
 			clicked => {
 				root.stack_clicked();
 			}
 		}
 		open := BasicCard {
-			id: 42;
-			mode: CardMode.Empty;
+			id: open_id;
+			mode: open_empty ? CardMode.Empty : CardMode.Open;
 		}
 	}
 
 	flying := FlyingCard {
-		id: 1;
+		id: flying_id;
 
 		home_x: stack.absolute-position.x;
 		home_y: stack.absolute-position.y;
